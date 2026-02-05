@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Grid Layout (Responsive)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f6fa;
+      color: #333;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      border: 1px solid #ebedf2;
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #ebedf2;
+      font-weight: 600;
+      font-size: 15px;
+      background: #fafbfc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    /* ─── Card 1: Churn Rate ─── */
+    .churn { grid-column: 1 / 2; grid-row: 1; }
+
+    /* ─── Card 2: User Growth ─── */
+    .growth { grid-column: 2 / 3; grid-row: 1; }
+
+    /* ─── Card 3: Product Performance ─── */
+    .performance { grid-column: 3 / 5; grid-row: 1 / 3; }
+
+    /* ─── Card 4: Conversion Funnel ─── */
+    .funnel { grid-column: 1 / 3; grid-row: 2; }
+
+    /* ─── Card 5: Recent Invoices ─── */
+    .invoices { grid-column: 1 / 5; }
+
+    /* Placeholder for charts / content */
+    .chart-placeholder {
+      height: 160px;
+      background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #64748b;
+      margin: 12px 0;
+    }
+
+    .small-number {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 8px 0;
+    }
+
+    .trend-up { color: #10b981; }
+    .trend-down { color: #ef4444; }
+
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .invoice-table th,
+    .invoice-table td {
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .invoice-table th {
+      background: #f8fafc;
+      font-weight: 600;
+    }
+
+    .status-complete { color: #10b981; font-weight: 500; }
+    .status-pending   { color: #f59e0b; font-weight: 500; }
+    .status-cancelled { color: #ef4444; font-weight: 500; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .performance {
+        grid-column: 1 / 3;
+        grid-row: 3;
+      }
+      .funnel {
+        grid-column: 1 / 3;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+      .performance,
+      .funnel,
+      .invoices {
+        grid-column: 1;
+      }
+      .card-body {
+        padding: 16px;
+      }
+      .small-number {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+
+    <!-- Card 1 -->
+    <div class="card churn">
+      <div class="card-header">Churn Rate</div>
+      <div class="card-body">
+        <div class="small-number">4.26%</div>
+        <div style="font-size:13px; color:#64748b;">Downgrade to Free plan • Week</div>
+        <div class="chart-placeholder">Line chart (churn trend ↓↑)</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card growth">
+      <div class="card-header">User Growth</div>
+      <div class="card-body">
+        <div class="small-number trend-up">3,768</div>
+        <div style="font-size:13px; color:#64748b;">New signups website + mobile • Week</div>
+        <div class="chart-placeholder">Area chart (growth ↑)</div>
+      </div>
+    </div>
+
+    <!-- Card 3 - Tall card -->
+    <div class="card performance">
+      <div class="card-header">Product Performance</div>
+      <div class="card-body">
+        <div style="display:flex; gap:30px; margin-bottom:20px;">
+          <div>
+            <div style="font-size:28px; font-weight:700;">Daily Sales</div>
+            <div style="color:#10b981;">↑ trend</div>
+          </div>
+          <div>
+            <div style="font-size:28px; font-weight:700;">Online Sales</div>
+          </div>
+        </div>
+        <div class="chart-placeholder" style="height:220px;">Bar / Line combo chart</div>
+        
+        <div style="margin-top:20px;">
+          <strong>Added last month:</strong> 8,490 users (+0.52%)
+        </div>
+        <div class="chart-placeholder" style="height:140px; margin-top:12px;">Weekly user activity line</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card funnel">
+      <div class="card-header">Conversion Funnel</div>
+      <div class="card-body">
+        <div style="font-size:14px; margin-bottom:12px;">
+          • Ad Impression → Website → App Download → New Users
+        </div>
+        <div class="chart-placeholder" style="height:220px;">Stacked bar funnel by month (Jan–Aug)</div>
+      </div>
+    </div>
+
+    <!-- Card 5 - Full width -->
+    <div class="card invoices">
+      <div class="card-header">Recent Invoices</div>
+      <div class="card-body">
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Serial No</th>
+              <th>Close Date</th>
+              <th>User</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#DPA29</td>
+              <td>April 28, 2016</td>
+              <td>Jenny Wilson</td>
+              <td>$475.85</td>
+              <td class="status-complete">Complete</td>
+            </tr>
+            <tr>
+              <td>#HTY274</td>
+              <td>October 30, 2017</td>
+              <td>Wade Warren</td>
+              <td>$295.01</td>
+              <td class="status-complete">Complete</td>
+            </tr>
+            <tr>
+              <td>#LKE600</td>
+              <td>May 29, 2017</td>
+              <td>Darlene Robertson</td>
+              <td>$782.01</td>
+              <td class="status-pending">Pending</td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

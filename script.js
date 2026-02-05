@@ -3,7 +3,11 @@ function toggle(){
     ham.classList.toggle('activeHam');
 }
 
-function desktop_toggle(){
-    var ham = document.querySelector('.sidebar-container');
-    ham.classList.toggle('desktop_Ham');
-}
+ const tabs = document.querySelectorAll(".tab");
+
+ tabs.forEach(event=>{
+    event.addEventListener('click',()=>{
+        tabs.forEach(inner_Tab => inner_Tab.classList.remove('active'));
+        event.classList.add('active')
+    })
+ })
